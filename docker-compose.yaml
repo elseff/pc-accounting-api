@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres-pc-a
+    image: postgres:14-alpine
+    ports:
+      - 25432:5432
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USERNAME=${POSTGRES_USERNAME}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    healthcheck:
+      test: [ "CMD-SHELL","sh -c 'pg_isready -U $POSTGRES_USERNAME -d $POSTGRES_DB'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: always
