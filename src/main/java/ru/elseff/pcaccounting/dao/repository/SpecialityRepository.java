@@ -6,6 +6,5 @@ import ru.elseff.pcaccounting.dao.entity.Speciality;
 
 @Repository
 public interface SpecialityRepository extends JpaRepository<Speciality, Long> {
-
     Speciality findByCode(String code);
 }

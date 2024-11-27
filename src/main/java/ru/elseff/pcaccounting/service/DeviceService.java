@@ -41,26 +41,6 @@ public class DeviceService {
         log.info("added new device {}", device.getTitle());
     }
 
-//    public List<Device> findAllDevicesOnWarehouse() {
-//        return deviceRepository.findAllFreeDevices();
-//    }
-//
-//    public List<Device> findAllDevicesOnWarehouseByGroupCode(String code) {
-//        return deviceRepository.findAllFreeDevicesByTypeGroupCode(code);
-//    }
-//
-//    public List<Device> findAllDevicesOnWarehouseByTypeCode(String code) {
-//        return deviceRepository.findAllFreeDevicesByTypeCode(code);
-//    }
-//
-//    public List<Device> findAllByCode(String code) {
-//        return deviceRepository.findAllByType_Code(code);
-//    }
-//
-//    public List<Device> findAllByGroup(String group) {
-//        return deviceRepository.findAllByTypeGroup_Code(group);
-//    }
-
     public List<Device> findAll(String code, String group, boolean free) {
         List<Device> devices;
         if (StringUtils.hasText(code)) {

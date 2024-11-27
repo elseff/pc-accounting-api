@@ -6,5 +6,5 @@ import ru.elseff.pcaccounting.dao.entity.ComputerType;
 
 @Repository
 public interface ComputerTypeRepository extends JpaRepository<ComputerType, Long> {
-    public ComputerType findByCode(String code);
+    ComputerType findByCode(String code);
 }

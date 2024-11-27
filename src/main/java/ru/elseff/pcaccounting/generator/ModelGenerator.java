@@ -3,14 +3,14 @@ package ru.elseff.pcaccounting.generator;
 import org.springframework.stereotype.Component;
 import ru.elseff.pcaccounting.dao.entity.*;
 import ru.elseff.pcaccounting.dto.DocumentModel;
-import ru.elseff.pcaccounting.dto.log.ComputerDeviceLogModel;
-import ru.elseff.pcaccounting.dto.log.ComputerEmployeeLogModel;
 import ru.elseff.pcaccounting.dto.computer.ComputerModel;
 import ru.elseff.pcaccounting.dto.device.DeviceModel;
 import ru.elseff.pcaccounting.dto.device.DeviceOperationTypeModel;
 import ru.elseff.pcaccounting.dto.device.TypeModel;
 import ru.elseff.pcaccounting.dto.employee.EmployeeModel;
 import ru.elseff.pcaccounting.dto.employee.EmployeeOperationTypeModel;
+import ru.elseff.pcaccounting.dto.log.ComputerDeviceLogModel;
+import ru.elseff.pcaccounting.dto.log.ComputerEmployeeLogModel;
 
 import java.util.stream.Collectors;
 

@@ -19,9 +19,6 @@ public class EmployeeOperationType {
     @Column(name = "id", nullable = false, unique = true, updatable = false)
     Long id;
 
-    /**
-     * @see EnumEmployeeOperationType
-     */
     @Column(name = "code", unique = true, nullable = false)
     String code;
 
