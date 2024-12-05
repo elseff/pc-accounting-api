@@ -1,5 +1,22 @@
 version: '3'
 services:
+  pc-accouting-api:
+    container_name: pc-accounting-api
+    build: .
+    env_file:
+      - .env
+    environment:
+      - "POSTGRES_HOST=${POSTGRES_HOST}"
+      - "POSTGRES_PORT=${POSTGRES_PORT}"
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USERNAME=${POSTGRES_USERNAME}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      - "SERVER_PORT:${SERVER_PORT}"
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
   postgres:
     container_name: postgres-pc-a
     image: postgres:14-alpine
