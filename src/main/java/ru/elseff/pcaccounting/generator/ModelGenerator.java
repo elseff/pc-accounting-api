@@ -35,6 +35,7 @@ public class ModelGenerator {
         if (device == null) return null;
 
         return DeviceModel.builder()
+                .id(device.getId())
                 .title(device.getTitle())
                 .type(this.generateTypeModel(device.getType()))
                 .build();
