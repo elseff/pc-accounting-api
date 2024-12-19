@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres-pc-a
+    image: postgres:14-alpine
+    ports:
+      - 25432:5432
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USERNAME=${POSTGRES_USERNAME}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    healthcheck:
+      test: [ "CMD-SHELL","sh -c 'pg_isready -U $POSTGRES_USERNAME -d $POSTGRES_DB'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: always
+  pc-accouting-api:
+    container_name: pc-accounting-api
+    image: "${CONTAINER_REGISTRY_URL}/${CONTAINER_REGISTRY_USERNAME}/${CONTAINER_REGISTRY_API_REPO}:latest"
+    environment:
+      - "SERVER_PORT=${SERVER_PORT}"
+      - "POSTGRES_HOST=${POSTGRES_HOST}"
+      - "POSTGRES_PORT=${POSTGRES_PORT}"
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USERNAME=${POSTGRES_USERNAME}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      - "ALLOWED_ORIGINS=${ALLOWED_ORIGINS}"
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+  pc-accounting-ui:
+    container_name: pc-accounting-ui
+    image: "${CONTAINER_REGISTRY_URL}/${CONTAINER_REGISTRY_USERNAME}/${CONTAINER_REGISTRY_UI_REPO}:latest"
+    environment:
+      - "CLIENT_PORT=${CLIENT_PORT}"
+    ports:
+    - "${CLIENT_PORT}:${CLIENT_PORT}"
+    depends_on:
+      pc-accouting-api:
+        condition: service_started
