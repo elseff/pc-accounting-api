@@ -8,14 +8,16 @@ import java.util.List;
 
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, Long> {
-    List<Device> findAllByTypeCodeAndComputerIsNull(String code);
+    List<Device> findAllByTypeCodeAndComputerIsNullAndDeletedIsFalse(String code);
 
-    List<Device> findAllByTypeCode(String code);
+    List<Device> findAllByTypeCodeAndDeletedIsFalse(String code);
 
-    List<Device> findAllByTypeGroupCode(String group);
+    List<Device> findAllByTypeGroupCodeAndDeletedIsFalse(String group);
 
-    List<Device> findAllByTypeGroupCodeAndComputerIsNull(String group);
+    List<Device> findAllByTypeGroupCodeAndComputerIsNullAndDeletedIsFalse(String group);
 
-    List<Device> findAllByComputerIsNull();
+    List<Device> findAllByComputerIsNullAndDeletedIsFalse();
+
+    List<Device> findAllByDeletedIsFalse();
 }
 

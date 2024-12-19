@@ -20,6 +20,7 @@ public class ComputerModel {
     Long id;
     String number;
     String title;
+    String type;
     boolean ready;
     Integer cabinet;
     EmployeeModel responsibleEmployee;

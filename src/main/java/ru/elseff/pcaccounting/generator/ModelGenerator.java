@@ -55,6 +55,7 @@ public class ModelGenerator {
 
         return ComputerModel.builder()
                 .id(computer.getId())
+                .type(computer.getType().getTitle())
                 .number(computer.getNumber())
                 .title(computer.getTitle())
                 .ready(computer.isReady())

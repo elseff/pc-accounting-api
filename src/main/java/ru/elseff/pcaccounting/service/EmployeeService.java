@@ -40,6 +40,10 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public List<Employee> findAllFree() {
+        return employeeRepository.findAllByComputerIsNull();
+    }
+
     public void addEmployee(AddEmployeeRequest request) {
         EnumSpeciality enumSpeciality = EnumSpeciality.of(request.getSpeciality());
         if (enumSpeciality == null) {

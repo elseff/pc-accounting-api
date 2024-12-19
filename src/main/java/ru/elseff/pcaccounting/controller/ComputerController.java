@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.elseff.pcaccounting.dto.EnumDisassembleType;
+import ru.elseff.pcaccounting.dao.entity.Computer;
 import ru.elseff.pcaccounting.dto.computer.AddComputerResponse;
 import ru.elseff.pcaccounting.dto.computer.AddEmptyComputerRequest;
 import ru.elseff.pcaccounting.dto.computer.ComputerModel;
@@ -84,8 +84,9 @@ public class ComputerController {
             }
     )
     @GetMapping
-    public List<ComputerModel> findAll(@RequestParam(required = false) Boolean ready) {
-        return computerService.findAll()
+    public List<ComputerModel> findAll(@RequestParam(required = false, defaultValue = "false") boolean free) {
+        List<Computer> computers = free ? computerService.findAllFree() : computerService.findAll();
+        return computers
                 .stream()
                 .map(modelGenerator::generateComputerModel)
                 .collect(Collectors.toList());
@@ -159,14 +160,12 @@ public class ComputerController {
                             description = "Компьютер успешно списан",
                             content = @Content(schema = @Schema(description = "Статус", implementation = String.class))
                     )
-            },
-            parameters = {
-
             }
     )
-    @PostMapping("/{computerId}/disassemble")
-    public String disassemble(@PathVariable Long computerId, @RequestParam(defaultValue = "true") boolean toWarehouse) {
-        EnumDisassembleType disassembleType = computerService.disassemble(computerId, toWarehouse);
-        return String.format(disassembleType.getTitle(), computerId);
+    @PostMapping("/{computerId}/disassemble/{toWarehouse}")
+    public void disassemble(@PathVariable Long computerId,
+                            @PathVariable boolean toWarehouse) {
+        log.info("toWarehouse parameter: " + toWarehouse);
+        computerService.disassemble(computerId, toWarehouse);
     }
 }

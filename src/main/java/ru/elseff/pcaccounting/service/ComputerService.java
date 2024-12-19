@@ -51,7 +51,11 @@ public class ComputerService {
     }
 
     public List<Computer> findAll() {
-        return computerRepository.findAll();
+        return computerRepository.findAllByDeletedIsFalse();
+    }
+
+    public List<Computer> findAllFree() {
+        return computerRepository.findAllByDeletedIsFalseAndEmployeeIsNull();
     }
 
     public Computer findById(Long computerId) {
@@ -113,6 +117,8 @@ public class ComputerService {
         Computer computer = findById(computerId);
         EnumDisassembleType disassembleType = toWarehouse ? EnumDisassembleType.TO_WAREHOUSE : EnumDisassembleType.TOTALLY;
         List<Device> devices = computer.getDevices();
+        log.error(String.valueOf(toWarehouse));
+        log.error(disassembleType.getTitle());
         if (EnumDisassembleType.TO_WAREHOUSE.equals(disassembleType)) {
             for (Device device : devices) {
                 device.setComputer(null);
@@ -121,8 +127,13 @@ public class ComputerService {
             deviceRepository.saveAll(devices);
             log.info("Компьютер {} разобран по запчастям", computer.getTitle());
         } else {
-            deviceRepository.deleteAll(devices);
-            computerRepository.delete(computer);
+            for (Device device : devices) {
+                device.setDeleted(true);
+            }
+            computer.setDeleted(true);
+            computer.setEmployee(null);
+            deviceRepository.saveAll(devices);
+            computerRepository.save(computer);
             log.info("Компьютер {} списан полностью", computer.getTitle());
         }
 

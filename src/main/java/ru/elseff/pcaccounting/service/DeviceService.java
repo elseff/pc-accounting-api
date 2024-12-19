@@ -45,21 +45,21 @@ public class DeviceService {
         List<Device> devices;
         if (StringUtils.hasText(code)) {
             if (free) {
-                devices = deviceRepository.findAllByTypeCodeAndComputerIsNull(code);
+                devices = deviceRepository.findAllByTypeCodeAndComputerIsNullAndDeletedIsFalse(code);
             } else {
-                devices = deviceRepository.findAllByTypeCode(code);
+                devices = deviceRepository.findAllByTypeCodeAndDeletedIsFalse(code);
             }
         } else if (StringUtils.hasText(group)) {
             if (free) {
-                devices = deviceRepository.findAllByTypeGroupCodeAndComputerIsNull(group);
+                devices = deviceRepository.findAllByTypeGroupCodeAndComputerIsNullAndDeletedIsFalse(group);
             } else {
-                devices = deviceRepository.findAllByTypeGroupCode(group);
+                devices = deviceRepository.findAllByTypeGroupCodeAndDeletedIsFalse(group);
             }
         } else {
             if (free) {
-                devices = deviceRepository.findAllByComputerIsNull();
+                devices = deviceRepository.findAllByComputerIsNullAndDeletedIsFalse();
             } else {
-                devices = deviceRepository.findAll();
+                devices = deviceRepository.findAllByDeletedIsFalse();
             }
         }
 

@@ -11,28 +11,28 @@ import java.util.Arrays;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum EnumDeviceType {
-    KEYBOARD("peripherals", "keyboard", "Клавиатура"),
-    MOUSE("peripherals", "mouse", "Мышь"),
-    PRINTER("peripherals", "printer", "Принтер"),
-    DISPLAY("peripherals", "display", "Монитор"),
-    SPEAKER("peripherals", "speaker", "Колонки"),
-    HEADPHONES("peripherals", "headphones", "Наушники"),
-    SCANNER("peripherals", "scanner", "Сканер"),
-    CAMERA("peripherals", "camera", "Камера"),
+    KEYBOARD(Constants.PERIPHERALS, "keyboard", "Клавиатура"),
+    MOUSE(Constants.PERIPHERALS, "mouse", "Мышь"),
+    PRINTER(Constants.PERIPHERALS, "printer", "Принтер"),
+    DISPLAY(Constants.PERIPHERALS, "display", "Монитор"),
+    SPEAKER(Constants.PERIPHERALS, "speaker", "Колонки"),
+    HEADPHONES(Constants.PERIPHERALS, "headphones", "Наушники"),
+    SCANNER(Constants.PERIPHERALS, "scanner", "Сканер"),
+    CAMERA(Constants.PERIPHERALS, "camera", "Камера"),
 
-    HARD_DRIVE("accessories", "hard-drive", "Жесткий диск"),
-    RAM("accessories", "ram", "Оперативная память"),
-    MOTHERBOARD("accessories", "motherboard", "Материнская плата"),
-    VIDEO_CARD("accessories", "video-card", "Видеокарта"),
-    CPU("accessories", "cpu", "Процессор"),
-    DRIVE("accessories", "drive", "Дисковод"),
-    AUDIO_CARD("accessories", "audio-card", "Звуковая карта"),
-    POWER_UNIT("accessories", "power-unit", "Блок питания"),
-    CASE("accessories", "case", "Корпус"),
-    HDD("accessories", "hdd", "HDD"),
-    SSD("accessories", "ssd", "SSD"),
-    NETWORK_CARD("accessories", "network-card", "Сетевая карта"),
-    COOLER("accessories", "cooler", "Кулер");
+    HARD_DRIVE(Constants.ACCESSORIES, "hard-drive", "Жесткий диск"),
+    RAM(Constants.ACCESSORIES, "ram", "Оперативная память"),
+    MOTHERBOARD(Constants.ACCESSORIES, "motherboard", "Материнская плата"),
+    VIDEO_CARD(Constants.ACCESSORIES, "video-card", "Видеокарта"),
+    CPU(Constants.ACCESSORIES, "cpu", "Процессор"),
+    DRIVE(Constants.ACCESSORIES, "drive", "Дисковод"),
+    AUDIO_CARD(Constants.ACCESSORIES, "audio-card", "Звуковая карта"),
+    POWER_UNIT(Constants.ACCESSORIES, "power-unit", "Блок питания"),
+    CASE(Constants.ACCESSORIES, "case", "Корпус"),
+    HDD(Constants.ACCESSORIES, "hdd", "HDD"),
+    SSD(Constants.ACCESSORIES, "ssd", "SSD"),
+    NETWORK_CARD(Constants.ACCESSORIES, "network-card", "Сетевая карта"),
+    COOLER(Constants.ACCESSORIES, "cooler", "Кулер");
 
     String group;
     String code;
@@ -43,5 +43,10 @@ public enum EnumDeviceType {
                 .filter(type -> type.getCode().equals(code))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private static class Constants {
+        public static final String PERIPHERALS = "peripherals";
+        public static final String ACCESSORIES = "accessories";
     }
 }

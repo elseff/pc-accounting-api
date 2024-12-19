@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.elseff.pcaccounting.dao.entity.Employee;
 import ru.elseff.pcaccounting.dto.PassResponsibilityResponse;
 import ru.elseff.pcaccounting.dto.employee.AddEmployeeRequest;
 import ru.elseff.pcaccounting.dto.employee.AddEmployeeResponse;
@@ -49,8 +50,9 @@ public class EmployeeController {
             }
     )
     @GetMapping
-    public List<EmployeeModel> findAll() {
-        return employeeService.findAll()
+    public List<EmployeeModel> findAll(@RequestParam(required = false, defaultValue = "false") boolean free) {
+        List<Employee> emps = free ? employeeService.findAllFree() : employeeService.findAll();
+        return emps
                 .stream()
                 .map(modelGenerator::generateEmployeeModel)
                 .collect(Collectors.toList());

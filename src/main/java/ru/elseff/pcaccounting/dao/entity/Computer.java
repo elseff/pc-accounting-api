@@ -33,6 +33,9 @@ public class Computer {
     @Column(name = "ready", nullable = false)
     boolean ready;
 
+    @Column(name = "deleted", nullable = false)
+    boolean deleted;
+
     @ManyToOne
     @JoinColumn(name = "computer_type_id", nullable = false)
     ComputerType type;

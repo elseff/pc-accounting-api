@@ -35,6 +35,9 @@ public class Device {
     @Column(name = "price")
     Integer price;
 
+    @Column(name = "deleted", nullable = false)
+    boolean deleted;
+
     @JoinColumn(name = "computer_id")
     @ManyToOne(fetch = FetchType.LAZY)
     Computer computer;
